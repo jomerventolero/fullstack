@@ -1,40 +1,53 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // use useNavigate instead of useHistory
 
-  const handleRegister = () => {
-    axios.post('/api/register', {
-      username: username,
-      password: password
-    })
-      .then(response => {
-        setMessage(response.data.message);
-      })
-      .catch(error => {
-        console.log(error);
-        setMessage(error.response.data.error);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/register', {
+        username,
+        password,
       });
-  };
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+      localStorage.setItem('token', response.data.access_token);
+      navigate('/dashboard', { replace: true }); // navigate to the dashboard page
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div>
-      <h2>Register</h2>
-      <input type="text" value={username} onChange={handleUsernameChange} placeholder="Username" />
-      <input type="password" value={password} onChange={handlePasswordChange} placeholder="Password" />
-      <button onClick={handleRegister}>Register</button>
-      {message && <p>{message}</p>}
+      <h1>Register Page</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+      <p>
+        Already have an account? <Link to="/login">Login here!</Link>
+      </p>
     </div>
   );
 }

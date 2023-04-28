@@ -1,13 +1,20 @@
-import React from 'react'
-import './App.css'
+import React, { useState } from 'react';
+import LoginPage from '../src/pages/LoginPage.jsx';
+import './App.css';
 
 function App() {
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+
+
   return (
-    <div className="">
-      <h1 className="text-blue-400">Bespoke Ticketing Support</h1>
+    <div className="App">
+      <LoginPage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
