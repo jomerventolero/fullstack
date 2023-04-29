@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-import LoginPage from '../src/pages/LoginPage.jsx';
-import './App.css';
+import Navbar from '../src/components/Navbar.jsx';
 
 function App() {
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-
-
   return (
-    <div className="App">
-      <LoginPage />
+    <div className="bg-background1 bg-cover w-screen h-screen">
+      <Navbar />
+      
     </div>
   );
 }
