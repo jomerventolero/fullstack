@@ -24,7 +24,7 @@ module.exports = {
         xl: "18px",
       },
       backgroundImage: {
-        "background": "url('src/assets/mainherosection.png')"
+        "background1": "url('src/assets/bg-1.jpg')"
       }
     },
     screens: {
