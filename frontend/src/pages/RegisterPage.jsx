@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Navbar from '../components/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -23,6 +24,9 @@ function RegisterPage() {
 
   return (
     <div>
+    <Navbar />
+    <div className="absolute top-[200px] font-poppins justify-center">
+      
       <h1>Register Page</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -41,6 +45,7 @@ function RegisterPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+
           />
         </div>
         <button type="submit">Register</button>
@@ -48,6 +53,7 @@ function RegisterPage() {
       <p>
         Already have an account? <Link to="/login">Login here!</Link>
       </p>
+    </div>
     </div>
   );
 }
