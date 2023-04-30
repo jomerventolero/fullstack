@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import Navbar from '../components/Navbar';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -25,9 +25,9 @@ function LoginPage() {
 
   return (
     <div className="bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center">
-      
+      <Navbar />
       <form onSubmit={handleSubmit} className="flex flex-col justify-evenly gap-4 m-4 p-4 rounded-2xl">
-        
+
         <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
         <div className="p-2">
           <label 

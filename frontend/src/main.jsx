@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import RegisterPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import './index.css'

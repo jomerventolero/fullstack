@@ -1,5 +1,6 @@
 import React from 'react'
 import herobg from '../assets/herobg.jpg'
+import keys from '../assets/keys.png'
 import { motion } from 'framer-motion'
 
 const Hero = () => {
@@ -12,8 +13,6 @@ const Hero = () => {
         className="-z-40"
         >
         <img src={herobg} alt="hero" className="w-1/4 absolute top-[140px] left-20 -z-10"/>
-        
-
       </motion.div>  
       <motion.h1 
         initial={{ x: "-50vw"}}
@@ -25,9 +24,27 @@ const Hero = () => {
           animate={{ y:0 }}
           transition={{ type: "spring", stiffness: 40, delay: 0.4}}
           className="absolute top-[280px] left-[440px] text-[64px] font-poppins font-semibold text-black">P L A I N S</motion.h1>
-      <motion.p className="text-black absolute top-[350px] left-[444px] font-poppins font-semibold">
+      <motion.p 
+        initial={{ x: "150vw"}}
+        animate={{ x:0 }}
+        transition={{ type: "spring", stiffness: 20, delay: 0.2}}
+        className="text-black absolute top-[350px] left-[444px] font-poppins font-semibold z-10">
         Discover Your Serene Haven at Celina Plains <br/> Where Peaceful Living Begins
       </motion.p>
+      <motion.div 
+        initial={{ y: "150vw"}}
+        animate={{ y:0 }}
+        transition={{ type: "spring", stiffness: 40, delay: 0.4}}
+        className="absolute top-[200px] left-[40px] bg-blue-300 h-1/2 w-1/4 -z-20">
+      </motion.div>
+      <motion.div
+        initial={{ y: "-50vw" }}
+        animate={{ y:0 }}
+        transition={{ type: "spring", stiffness: 60, delay: 0.1}}
+        className="-z-40"
+        >
+        <img src={keys} alt="keys" className="w-1/4 absolute top-[100px] left-[20px]"/>
+      </motion.div>
     </div>
   )
 }
