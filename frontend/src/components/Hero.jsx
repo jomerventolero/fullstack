@@ -52,7 +52,7 @@ const Hero = () => {
         transition={{ type: "spring", stiffness: 80, delay: 0.8}}
         className="-z-40"
         >
-        <img src={herobg2} alt="hero" className="w-1/2 absolute top-[60px] right-2 -z-10"/>
+        <img src={herobg2} alt="hero" className="w-1/2 absolute top-[60px] -right-4 -z-10"/>
       </motion.div>  
     </div>
   )

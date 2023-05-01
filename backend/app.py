@@ -2,8 +2,14 @@ from flask import Flask, jsonify, request
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+
+
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 app.config['SECRET_KEY'] = 'asdfghjklqwertyuiop'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'

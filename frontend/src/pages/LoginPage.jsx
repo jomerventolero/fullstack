@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import logo from '../assets/celina.png';
 
 
 function LoginPage() {
@@ -27,10 +28,12 @@ function LoginPage() {
   return (
     <div className="bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center">
       <Navbar />
-      <form onSubmit={handleSubmit} className="flex flex-col justify-evenly gap-4 m-4 p-4 rounded-2xl">
-
-        <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
-        <div className="p-2">
+      <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-4 p-4 rounded-2xl bg-white">
+        <div className="flex">
+          <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
+          <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
+        </div>
+        <div className="p-2 justify-center gap-2">
           <label 
             className="p-2"
             htmlFor="username">Username:</label>
@@ -39,10 +42,10 @@ function LoginPage() {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="p-1 mx-auto border-2 rounded-full"
+            className="p-1 border-2 rounded-full"
           />
         </div>
-        <div className="p-2">
+        <div className="p-2 justify-center gap-2">
           <label 
             className="p-2"
             htmlFor="password">Password:</label>
@@ -51,9 +54,10 @@ function LoginPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="p-1 mx-auto border-2 rounded-full"
+            className="p-1 border-2 rounded-full"
           />
-        </div>  
+        </div>
+        <button type="submit" className="py-2 px-4 mx-auto border-2 rounded-full">Login</button>
       </form>
       <p className="text-white drop-shadow-2xl">
         Don't have an account? <a className="" href="/register">Register here!</a>
