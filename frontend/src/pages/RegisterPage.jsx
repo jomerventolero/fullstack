@@ -12,16 +12,15 @@ function RegisterPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/register', {
-        username,
-        password,
-      });
-      localStorage.setItem('token', response.data.access_token);
-      navigate('/dashboard', { replace: true }); // navigate to the dashboard page
-    } catch (error) {
+    axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true })
+    then(response => {
+      // Redirect the user to the login page on successful logout
+      window.location.href = '/login';
+    })
+    .catch(error => {
       console.error(error);
-    }
+      alert('An error occurred while logging out');
+    });
   };
 
   return (
@@ -71,7 +70,7 @@ function RegisterPage() {
             className="p-1 border-2 rounded-full"
           />
         </div>
-        <button type="submit" className="py-2 px-4 mx-auto border-2 rounded-full">Register</button>
+        <button type="submit" onClick={handleSubmit} className="py-2 px-4 mx-auto border-2 rounded-full">Register</button>
         <p>
           Already have an account? <Link to="/login">Login here!</Link>
         </p>

@@ -3,18 +3,19 @@ from flask_login import LoginManager, login_user, logout_user, login_required, U
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
 
-
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 
 app.config['SECRET_KEY'] = 'asdfghjklqwertyuiop'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
