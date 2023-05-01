@@ -66,7 +66,7 @@ function RegisterPage() {
           <input
             type="password"
             id="password1"
-            value={password}
+            value={password1}
             onChange={(e) => setPassword1(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
