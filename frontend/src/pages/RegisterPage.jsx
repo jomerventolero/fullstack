@@ -7,6 +7,7 @@ import logo from '../assets/celina.png';
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [password1, setPassword1] = useState('');
   const navigate = useNavigate(); // use useNavigate instead of useHistory
 
   const handleSubmit = async (event) => {
@@ -61,12 +62,12 @@ function RegisterPage() {
         <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="password">Re-type Password</label>
+            htmlFor="password1">Re-type Password</label>
           <input
             type="password"
-            id="password"
+            id="password1"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword1(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
         </div>
