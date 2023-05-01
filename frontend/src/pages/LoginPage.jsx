@@ -28,15 +28,15 @@ function LoginPage() {
   return (
     <div className="bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center">
       <Navbar />
-      <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-4 p-4 rounded-2xl bg-white">
+      <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-4 p-8 rounded-2xl bg-white drop-shadow-2xl">
         <div className="flex">
           <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
           <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
         </div>
-        <div className="p-2 justify-center gap-2">
+        <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="username">Username:</label>
+            htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
@@ -45,10 +45,10 @@ function LoginPage() {
             className="p-1 border-2 rounded-full"
           />
         </div>
-        <div className="p-2 justify-center gap-2">
+        <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="password">Password:</label>
+            htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
