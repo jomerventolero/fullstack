@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../assets/celina.png';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -23,36 +24,58 @@ function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className='bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center'>
     <Navbar />
-    <div className="absolute top-[200px] font-poppins justify-center">
-      
-      <h1>Register Page</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
+    <div className="justify-center">      
+      <form onSubmit={handleSubmit} 
+        className="flex flex-col justify-center items-center gap-4 p-8 pt-[100px] rounded-2xl bg-white drop-shadow-2xl"
+        >
+        <div className="flex">
+          <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
+          <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
+        </div>
+        <div className="flex flex-col justify-center gap-1">
+          <label 
+            className="p-2"
+            htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className="p-1 border-2 rounded-full"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="flex flex-col justify-center gap-1">
+          <label 
+            className="p-2"
+            htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-
+            className="p-1 border-2 rounded-full"
           />
         </div>
-        <button type="submit">Register</button>
+        <div className="flex flex-col justify-center gap-1">
+          <label 
+            className="p-2"
+            htmlFor="password">Re-type Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="p-1 border-2 rounded-full"
+          />
+        </div>
+        <button type="submit" className="py-2 px-4 mx-auto border-2 rounded-full">Register</button>
+        <p>
+          Already have an account? <Link to="/login">Login here!</Link>
+        </p>
       </form>
-      <p>
-        Already have an account? <Link to="/login">Login here!</Link>
-      </p>
+
     </div>
     </div>
   );
