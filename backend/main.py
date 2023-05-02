@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+import jwt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
@@ -9,6 +11,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+def decode_auth_token(auth_token):
+    """
+    Decodes the given auth token and returns the user ID.
+    """
+    try:
+        payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
+        return payload['sub']
+    except jwt.ExpiredSignatureError:
+        return 'Signature expired. Please log in again.'
+    except jwt.InvalidTokenError:
+        return 'Invalid token. Please log in again.'
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -117,3 +130,5 @@ def get_appointments():
 
     return jsonify({'appointments': appointment_list}), 200
 
+if __name__ == '__main__':
+    app.run(debug=True)
