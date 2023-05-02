@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../assets/celina.png';
 
@@ -8,19 +8,24 @@ function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password1, setPassword1] = useState('');
-  const navigate = useNavigate(); // use useNavigate instead of useHistory
 
-  const handleSubmit = async (event) => {
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true })
-    then(response => {
-      // Redirect the user to the login page on successful logout
-      window.location.href = '/login';
-    })
-    .catch(error => {
-      console.error(error);
-      alert('An error occurred while logging out');
-    });
+    axios.post('localhost:5000/api/register', { username, password })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
