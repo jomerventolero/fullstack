@@ -112,5 +112,9 @@ def logout():
     logout_user()
     return jsonify({'message': 'Logged out successfully'}), 200
 
+@app.route('/test', methods=['GET'])
+def test_enpoint():
+    return jsonify({'message': 'You are authenticated!'})
+
 if __name__ == '__main__':
     app.run(debug=True)
