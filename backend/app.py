@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from flask_migrate import Migrate
-
+import datetime
 
 app = Flask(__name__)
 
@@ -30,6 +30,49 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+''' 
+    Appointment Data Model
+'''
+    
+class Appointment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        return f"Appointment(id={self.id}, name='{self.name}', email='{self.email}', phone='{self.phone}', date='{self.date}')"
+
+
+@app.route('/appointments', methods=['POST'])
+def create_appointment():
+    name = request.json['name']
+    email = request.json['email']
+    phone = request.json['phone']
+    date = datetime.strptime(request.json['date'], '%Y-%m-%d %H:%M:%S')
+
+    appointment = Appointment(name=name, email=email, phone=phone, date=date)
+    db.session.add(appointment)
+    db.session.commit()
+
+    return jsonify({'id': appointment.id})
+
+
+@app.route('/appointments', methods=['GET'])
+def get_appointments():
+    appointments = Appointment.query.order_by(Appointment.date).all()
+    result = []
+    for appointment in appointments:
+        result.append({
+            'id': appointment.id,
+            'name': appointment.name,
+            'email': appointment.email,
+            'phone': appointment.phone,
+            'date': appointment.date.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    return jsonify(result)
 
 @login_manager.user_loader
 def load_user(user_id):
