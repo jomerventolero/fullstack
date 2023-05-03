@@ -40,7 +40,7 @@ class Appointment(db.Model):
 db.create_all()
 
 # create a hardcoded admin user
-admin = User(username='admin', email='admin@example.com', phone='1234567890', password=generate_password_hash('admin'))
+admin = User(username='admin', email='admin@example.com', phone='1234567890', password=generate_password_hash('celinaplainsadmin'))
 
 # add the admin user to the database
 db.session.add(admin)
