@@ -28,7 +28,9 @@ function DashboardPage(props) {
       <DashboardNav />
       <div className="pt-[80px]">
         <h2>Welcome, {props.email}!</h2>
-        <button onClick={handleLogout}>Logout</button>
+        <div>
+          
+        </div>
       </div>
     </div>
   );
