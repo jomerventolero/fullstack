@@ -1,34 +1,31 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Navbar from '../components/Navbar';
 import logo from '../assets/celina.png';
+import { auth } from '../../../server/auth.js';
 
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
-        username,
-        password,
-      });
-      localStorage.setItem('token', response.data.access_token);
-      navigate('/dashboard', { replace: true });
+      await auth.signInWithEmailAndPassword(email, password);
+      setEmail('');
+      setPassword('');
+      setError(null);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
-};
+  };
 
 
   return (
-    <div className="bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center">
+    <div className="flex flex-col items-center justify-center w-screen h-screen font-medium align-middle bg-cover bg-background1 text-slate-800 font-poppins">
       <Navbar />
-      <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-4 p-8 rounded-2xl bg-white drop-shadow-2xl">
+      <form onSubmit={handleSignIn} className="flex flex-col items-center justify-center gap-4 p-8 bg-white rounded-2xl drop-shadow-2xl">
         <div className="flex">
           <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
           <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
@@ -57,7 +54,7 @@ function LoginPage() {
             className="p-1 border-2 rounded-full"
           />
         </div>
-        <button type="submit" className="py-2 px-4 mx-auto border-2 rounded-full">Login</button>
+        <button type="submit" className="px-4 py-2 mx-auto border-2 rounded-full">Login</button>
       </form>
       <p className="text-white drop-shadow-2xl">
         Don't have an account? <a className="" href="/register">Register here!</a>

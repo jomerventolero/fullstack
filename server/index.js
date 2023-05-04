@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+
 app.post('/signup', async (req, res) => {
   const { email, password } = req.body;
 
@@ -51,3 +52,4 @@ app.get('/test', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
