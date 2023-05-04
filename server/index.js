@@ -31,6 +31,12 @@ app.post('/signin', async (req, res) => {
   // Firebase Admin SDK does not provide a direct method for user sign-in.
   // You should use Firebase client SDK for user sign-in on the client side.
   // For server-side, you can verify ID tokens after a user signs in on the client-side.
+  const { email, password } = req.body;
+  try {
+    await auth.getToken;
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 app.post('/appointment', async (req, res) => {
@@ -45,6 +51,45 @@ app.post('/appointment', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+const verifyIdToken = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+  
+    if (!authHeader) {
+      return res.status(403).json({ error: 'No token provided' });
+    }
+  
+    const [scheme, token] = authHeader.split(' ');
+  
+    if (scheme !== 'Bearer') {
+      return res.status(403).json({ error: 'Invalid token format' });
+    }
+  
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      req.uid = decodedToken.uid;
+      next();
+    } catch (error) {
+      res.status(403).json({ error: 'Invalid token' });
+    }
+  };
+  
+
+  app.get('/appointments', verifyIdToken, async (req, res) => {
+    try {
+      const appointmentsRef = admin.firestore().collection('appointments').doc(req.uid);
+      const doc = await appointmentsRef.get();
+      if (doc.exists) {
+        const appointments = doc.data().appointments || [];
+        res.status(200).json(appointments);
+      } else {
+        res.status(200).json([]); // No appointments found, return an empty array
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
 
 app.get('/test', async (req, res) => {
     res.status(200).json({ message: 'Success!' });

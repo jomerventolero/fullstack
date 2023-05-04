@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import logo from '../assets/celina.png';
-import { auth } from '../auth'
+import { auth } from '../auth';
 
 
 
@@ -18,6 +18,7 @@ function LoginPage() {
       setEmail('');
       setPassword('');
       setError(null);
+      window.location.href = '/dashboard';
     } catch (error) {
       setError(error.message);
     }

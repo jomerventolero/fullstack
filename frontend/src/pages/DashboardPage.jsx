@@ -4,7 +4,7 @@ import DashboardNav from '../components/DashboardNav';
 function DashboardPage(props) {
   const handleLogout = () => {
       // This function sends a POST request to the Flask logout endpoint
-    fetch('http:127.0.0.1:5000/api/logout', {
+    fetch('http:127.0.0.1:3000/logout', {
       method: 'POST',
       credentials: 'include', // Make sure to include credentials in the request
     })
@@ -24,10 +24,10 @@ function DashboardPage(props) {
 
 
   return (
-    <div className="">
+    <div className="flex justify-center font-poppins">
       <DashboardNav />
       <div className="pt-[80px]">
-        <h2>Welcome, {props.username}!</h2>
+        <h2>Welcome, {props.email}!</h2>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
