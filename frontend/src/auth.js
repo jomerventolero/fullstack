@@ -1,5 +1,5 @@
-const admin = require('firebase-admin');
-import 'firebase-admin/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDj5RD4lB1Oj7xLGnKYJx7haq6OhU10DUs",
@@ -9,9 +9,9 @@ const firebaseConfig = {
     messagingSenderId: "61281861594",
     appId: "1:61281861594:web:271b1529719c88abd78ae3",
     measurementId: "G-0B5PCRV2Y7"
-};
+  };
 
-admin.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 

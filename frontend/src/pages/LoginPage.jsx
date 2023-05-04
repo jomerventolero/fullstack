@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import logo from '../assets/celina.png';
-import { auth } from '../../../server/auth.js';
+import { auth } from '../auth'
+
 
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -33,12 +35,12 @@ function LoginPage() {
         <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="username">Username</label>
+            htmlFor="email">Email</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
         </div>
