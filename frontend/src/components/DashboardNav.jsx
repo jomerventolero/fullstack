@@ -3,11 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { auth } from '../auth'
-import { signOut } from 'firebase/compat/auth';
 
 const DashboardNav = () => {
   const logout = () => {
-    signOut(auth)
+    auth.signOut(auth)
       .then(() => {
         window.location.href = '/';
       })
