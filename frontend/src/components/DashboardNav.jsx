@@ -23,7 +23,7 @@ const DashboardNav = () => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/home">Book an Appointment</Nav.Link>
+                <Nav.Link href="/appointment">Book an Appointment</Nav.Link>
             </Nav>
             <Nav><Nav.Link href="/" onClick={logout}>Logout</Nav.Link></Nav>
             </Navbar.Collapse>

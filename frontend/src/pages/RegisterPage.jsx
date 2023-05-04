@@ -5,12 +5,13 @@ import axios from 'axios';
 import logo from '../assets/celina.png';
 
 function RegisterPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password1, setPassword1] = useState('');
+  const [toggle, setToggle] = useState(false);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -19,9 +20,10 @@ function RegisterPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('localhost:5000/api/register', { username, password })
+    axios.post('http://localhost:3000/signup', { email, password })
       .then(response => {
         console.log(response.data);
+        window.location.href = '/login';
       })
       .catch(error => {
         console.log(error);
@@ -42,12 +44,12 @@ function RegisterPage() {
         <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="username">Username</label>
+            htmlFor="email">email</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
         </div>
@@ -74,6 +76,7 @@ function RegisterPage() {
             onChange={(e) => setPassword1(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
+          
         </div>
         <button type="submit" onClick={handleSubmit} className="py-2 px-4 mx-auto border-2 rounded-full">Register</button>
         <p>

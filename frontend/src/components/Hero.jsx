@@ -3,15 +3,17 @@ import herobg from '../assets/herobg.jpg'
 import keys from '../assets/keys.png'
 import { motion } from 'framer-motion'
 import herobg2 from '../assets/herobg2.png'
+import celina from '../assets/celina-bg.jpg'
 
 const Hero = () => {
   return (
     <div className=" ">
+      <img src={celina} alt="celina" className="w-screen fixed -z-50 blur-sm" autoPlay loop/>
       <motion.div
         initial={{ y: "-50vw" }}
         animate={{ y:0 }}
         transition={{ type: "spring", stiffness: 80, delay: 0.4}}
-        className="-z-40"
+        className="-z-10"
         >
         <img src={herobg} alt="hero" className="w-1/4 absolute top-[140px] left-20 -z-10"/>
       </motion.div>  
@@ -52,7 +54,7 @@ const Hero = () => {
         transition={{ type: "spring", stiffness: 80, delay: 0.8}}
         className="-z-40"
         >
-        <img src={herobg2} alt="hero" className="w-1/2 absolute top-[60px] -right-4 -z-10"/>
+        <img src={herobg2} alt="hero" className="w-1/2 absolute top-[60px] -right-4 z-10"/>
       </motion.div>  
     </div>
   )

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
-const serviceAccount = require('./auth-68abe-firebase-adminsdk-8ntjw-dc939c0437.json'); // Replace with the name of your JSON file
+const serviceAccount = require('./celina-plains-firebase-adminsdk-chhjg-899b477033.json'); 
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -27,19 +27,8 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-app.post('/signin', async (req, res) => {
-  // Firebase Admin SDK does not provide a direct method for user sign-in.
-  // You should use Firebase client SDK for user sign-in on the client side.
-  // For server-side, you can verify ID tokens after a user signs in on the client-side.
-  const { email, password } = req.body;
-  try {
-    await auth.getToken;
-  } catch (error) {
-    console.log(error.message);
-  }
-});
 
-app.post('/appointment', async (req, res) => {
+app.post('/make-appointment', async (req, res) => {
   const { uid, description, date } = req.body;
 
   try {
@@ -51,6 +40,44 @@ app.post('/appointment', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+app.get('/get-appointments', async (req, res) => {
+  try {
+    const snapshot = await database.ref('/appointments').once('value');
+    const appointments = snapshot.val() || {};
+    res.json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Error fetching appointments' });
+  }
+});
+
+// API endpoint for creating an appointment
+app.post('/api/appointments', async (req, res) => {
+  const { email, phoneNumber, appointmentTime, message } = req.body;
+
+  if (!email || !phoneNumber || !appointmentTime) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    const newAppointment = {
+      email,
+      phoneNumber,
+      appointmentTime,
+      message: message || '',
+    };
+
+    const appointmentRef = await database.ref('/appointments').push(newAppointment);
+    const savedAppointment = { id: appointmentRef.key, ...newAppointment };
+
+    res.status(201).json(savedAppointment);
+  } catch (error) {
+    console.error('Error creating appointment:', error);
+    res.status(500).json({ message: 'Error creating appointment' });
+  }
+});
+
 
 const verifyIdToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
