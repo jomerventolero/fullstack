@@ -8,14 +8,14 @@ import celina from '../assets/celina-bg.jpg'
 const Hero = () => {
   return (
     <div className=" ">
-      <img src={celina} alt="celina" className="w-screen fixed -z-50 blur-sm" autoPlay loop/>
+      <img src={celina} alt="celina" draggable="false" className="w-screen fixed -z-50 blur-sm" autoPlay loop/>
       <motion.div
         initial={{ y: "-50vw" }}
         animate={{ y:0 }}
         transition={{ type: "spring", stiffness: 80, delay: 0.4}}
         className="-z-10"
         >
-        <img src={herobg} alt="hero" className="w-1/4 absolute top-[140px] left-20 -z-10"/>
+        <img src={herobg} draggable="false" alt="hero" className="w-1/4 absolute top-[140px] left-20 -z-10"/>
       </motion.div>  
       <motion.h1 
         initial={{ x: "-50vw"}}
@@ -46,7 +46,7 @@ const Hero = () => {
         transition={{ type: "spring", stiffness: 60, delay: 0.1}}
         className="-z-40"
         >
-        <img src={keys} alt="keys" className="w-1/4 absolute top-[100px] left-[20px]"/>
+        <img src={keys} alt="keys" draggable="false" className="w-1/4 absolute top-[100px] left-[20px]"/>
       </motion.div>
       <motion.div
         initial={{ x: "50vw" }}
@@ -54,7 +54,7 @@ const Hero = () => {
         transition={{ type: "spring", stiffness: 80, delay: 0.8}}
         className="-z-40"
         >
-        <img src={herobg2} alt="hero" className="w-1/2 absolute top-[60px] -right-4 z-10"/>
+        <img src={herobg2} alt="hero" draggable="false" className="w-1/2 absolute top-[60px] -right-4 z-10"/>
       </motion.div>  
     </div>
   )

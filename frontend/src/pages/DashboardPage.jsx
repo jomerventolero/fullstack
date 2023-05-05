@@ -6,7 +6,7 @@ import NewsFeed from '../components/NewsFeed';
 function DashboardPage() {
 
   return (
-    <div className="flex font-poppins bg-background1 bg-cover">
+    <div className="flex font-poppins bg-background1 bg-cover h-full overflow-hidden">
       <DashboardNav />
       <div className="pt-[80px]">
         <div className="flex flex-row justify-around px-[200px]">

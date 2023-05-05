@@ -5,8 +5,25 @@ import RegisterPage from './pages/RegisterPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import Appointment from './pages/Appointment.jsx'
+import ContactPage from './pages/Contact.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { auth } from './auth.js'
+import { useState, useEffect } from 'react';
+
+const userAuth = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
+  }, []);
+  return user;
+}
 
 const router = createBrowserRouter(
   [
@@ -20,7 +37,7 @@ const router = createBrowserRouter(
     },
     {
       path: '/dashboard',
-      element: <DashboardPage />,
+      element: userAuth ? <DashboardPage /> : <App />,
     },
     {
       path: "/login",
@@ -29,6 +46,10 @@ const router = createBrowserRouter(
     {
       path: "/appointment",
       element: <Appointment />,
+    },
+    {
+      path: '/contact',
+      element: <ContactPage />,
     }
   ]
 );

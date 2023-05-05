@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import DashboardPage from '../pages/DashboardPage';
 
 const ProtectedRoute = ({ component: Component, userUid, ...rest }) => {
   const isAuthenticated = !!userUid; // Check if the user UID exists
@@ -9,7 +10,7 @@ const ProtectedRoute = ({ component: Component, userUid, ...rest }) => {
       {...rest}
       render={(props) =>
         isAuthenticated ? (
-          <Component {...props} />
+          <DashboardPage {...props} />
         ) : (
           <Redirect to="/" /> // Redirect to the home page if not authenticated
         )
