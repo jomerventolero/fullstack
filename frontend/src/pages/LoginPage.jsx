@@ -21,6 +21,7 @@ function LoginPage() {
       window.location.href = '/dashboard';
     } catch (error) {
       setError(error.message);
+      alert("Invalid email or password");
     }
   };
 

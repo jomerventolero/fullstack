@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { MDBInput } from 'mdb-react-ui-kit';
 
 const AppointmentForm = () => {
   const [email, setEmail] = useState('');

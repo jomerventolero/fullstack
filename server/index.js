@@ -43,12 +43,13 @@ app.post('/make-appointment', async (req, res) => {
 
 app.get('/get-appointments', async (req, res) => {
   try {
-    const snapshot = await database.ref('/appointments').once('value');
+    const snapshot = await admin.database.ref('/appointments').once('value');
     const appointments = snapshot.val() || {};
     res.json(appointments);
   } catch (error) {
     console.error('Error fetching appointments:', error);
     res.status(500).json({ message: 'Error fetching appointments' });
+    alert(error.message);
   }
 });
 
@@ -116,6 +117,26 @@ const verifyIdToken = async (req, res, next) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+app.post('/send-message', async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    // Save the message to Firebase Firestore
+    const docRef = await db.collection('messages').add({
+      name,
+      email,
+      message,
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    console.log(`Message saved with ID: ${docRef.id}`);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error saving message:', error);
+    res.sendStatus(500);
+  }
+});
 
 
 app.get('/test', async (req, res) => {
