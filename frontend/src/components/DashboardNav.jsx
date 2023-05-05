@@ -16,7 +16,7 @@ const DashboardNav = () => {
       });
   };
   return (
-    <Navbar className="fixed w-full drop-shadow-2xl" bg="light" expand="lg">
+    <Navbar className="fixed w-full drop-shadow-2xl z-50" bg="light" expand="lg">
         <Container>
             <Navbar.Brand href="/">Celina Plains</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

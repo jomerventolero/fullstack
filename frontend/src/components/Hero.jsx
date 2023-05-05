@@ -21,17 +21,17 @@ const Hero = () => {
         initial={{ x: "-50vw"}}
         animate={{ x:0 }}
         transition={{ type: "spring", stiffness: 40, delay: 0.4}}
-        className="absolute top-[280px] left-[100px] text-[64px] font-poppins font-semibold text-white drop-shadow-2xl">C E L I N A</motion.h1>
+        className="absolute top-[290px] left-[30px] text-[86px] font-poppins font-semibold text-blue-500 drop-shadow-2xl">C E L I N A</motion.h1>
       <motion.h1 
           initial={{ y: "150vw"}}
           animate={{ y:0 }}
           transition={{ type: "spring", stiffness: 40, delay: 0.4}}
-          className="absolute top-[280px] left-[440px] text-[64px] font-poppins font-semibold text-black">P L A I N S</motion.h1>
+          className="absolute top-[280px] left-[440px] text-[64px] font-poppins font-semibold text-white drop-shadow-2xl">P L A I N S</motion.h1>
       <motion.p 
         initial={{ x: "150vw"}}
         animate={{ x:0 }}
         transition={{ type: "spring", stiffness: 20, delay: 0.2}}
-        className="text-black absolute top-[350px] left-[444px] font-poppins font-semibold z-10">
+        className="text-white absolute top-[350px] left-[444px] font-poppins font-semibold z-10">
         Discover Your Serene Haven at Celina Plains <br/> Where Peaceful Living Begins
       </motion.p>
       <motion.div 

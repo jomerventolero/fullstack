@@ -45,9 +45,11 @@ const DisplayAppointments = () => {
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
-        <ul className="pt-4">
+        <ul className="pt-4 z-10">
           {appointments.map((appointment) => (
-            <li key={appointment.id}>
+            <li key={appointment.id}
+                className="pb-6"
+            >
               <strong>Email:</strong> {appointment.email}
               <br />
               <strong>Phone Number:</strong> {appointment.phoneNumber}

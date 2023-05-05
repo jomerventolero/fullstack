@@ -13,7 +13,7 @@ function BasicExample() {
           <Nav className="me-auto font-poppins font-semibold text-black">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/#about">About</Nav.Link>
-            <Nav.Link href="/#contact">Contact us</Nav.Link>
+            <Nav.Link href="/appointment">Contact us</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/login" className="text-blue-700 font-semibold font-poppins">Login</Nav.Link>

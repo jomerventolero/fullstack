@@ -65,7 +65,6 @@ const About = () => {
             </div>
         </div>
         <div className="flex flex-row justify-center">
-            <h1>CELINA PLAINS IMUS</h1>
             <video src={video0} alt="video" className="h-3/4 w-full " autoPlay loop/>
         </div>
     </section>

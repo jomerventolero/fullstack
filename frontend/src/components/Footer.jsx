@@ -3,14 +3,14 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="absolute top-[400%] w-full bg-white text-black font-poppins">
-      <div className="container py-5">
+      <div className="container py-2">
         <div className="row">
           <div className="col-md-4">
             <img src="\src\assets\celina.png" alt="Celina Plains Logo" className="mb-3 w-[64px]" />
             <h3 className="mb-4">Celina Plains Subdivision</h3>
           </div>
-          <div className="col-md-4">
-            <h5 className="mb-4">Quick Links</h5>
+          <div className="col md-4">
+            <h5 className="col mb-4">Quick Links</h5>
             <ul className="list-unstyled">
               <li><a href="/">Home</a></li>
               <li><a href="/#about">About Us</a></li>

@@ -31,7 +31,7 @@ const handleSubmit = async (event) => {
 };
 
   return (
-    <div className="flex flex-col w-full max-w-md mx-auto mt-10 items-center justify-center">
+    <div className="bg-white rounded-lg py-4 drop-shadow-2xl flex flex-col w-full max-w-md mx-auto mt-10 items-center justify-center">
       <h1 className="text-2xl font-bold mb-5">Make an Appointment</h1>
       <form onSubmit={handleSubmit} className="space-y-4 justify-center">
         <div>
