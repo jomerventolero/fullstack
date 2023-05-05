@@ -10,30 +10,56 @@ const DisplayAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('/appointments');
+      const response = await axios.get('http://localhost:3000/get-appointments');
       setAppointments(response.data);
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
   };
 
+  const handleMakeAsDone = async (appointmentId, email, phoneNumber, appointmentTime, message) => {
+    try {
+      // Delete the appointment from the "appointments" collection
+      await axios.delete(`http://localhost:3000/delete-appointment/${appointmentId}`);
+
+      // Move the appointment to a different collection (e.g., "done-appointments")
+      await axios.post('http://localhost:3000/move-appointment', {
+        appointmentId,
+        email,
+        phoneNumber,
+        appointmentTime,
+        message,
+        // Add any additional fields from the appointment object that you want to store in the new collection
+      });
+
+      // Fetch the updated appointments list
+      fetchAppointments();
+    } catch (error) {
+      console.error('Error making appointment as done:', error);
+    }
+  };
+
   return (
-    <div>
-      <h1>Appointments</h1>
+    <div className='bg-white drop-shadow-2xl p-8 h-screen'>
+      <h1 className="font-poppins font-semibold text-5xl">Appointments</h1>
       {appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
-        <ul>
+        <ul className="pt-4">
           {appointments.map((appointment) => (
             <li key={appointment.id}>
-              <strong>Name:</strong> {appointment.name}
-              <br />
               <strong>Email:</strong> {appointment.email}
               <br />
-              <strong>Date:</strong> {appointment.date}
+              <strong>Phone Number:</strong> {appointment.phoneNumber}
               <br />
-              <strong>Time:</strong> {appointment.time}
+              <strong>Date/Time:</strong> {appointment.appointmentTime}
+              <br />
+              <strong>Message:</strong> {appointment.message}
               <hr />
+              <button type="submit" 
+                className="p-1 my-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 hover:border-blue-500"
+                onClick={() => handleMakeAsDone(appointment.id, appointment.email, appointment.phoneNumber, appointment.appointmentTime, appointment.message)}
+              >Make as Done</button>
             </li>
           ))}
         </ul>

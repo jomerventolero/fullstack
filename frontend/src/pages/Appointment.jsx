@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import AppointmentForm from '../components/AppointmentForm'
+import DashboardNav from '../components/DashboardNav'
 
 const Appointment = () => {
   return (
     <div>
-        <Navbar />
+        <DashboardNav />
         <div className="pt-[100px] flex justify-center">
             <AppointmentForm />
         </div>

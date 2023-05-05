@@ -29,53 +29,93 @@ app.post('/signup', async (req, res) => {
 
 
 app.post('/make-appointment', async (req, res) => {
-  const { uid, description, date } = req.body;
+  const { email, phoneNumber, appointmentTime, message } = req.body;
 
   try {
-    const userRef = admin.firestore().collection('appointments').doc(uid);
-    const appointment = { description, date };
-    await userRef.set({ appointments: admin.firestore.FieldValue.arrayUnion(appointment) }, { merge: true });
+    const appointment = {
+      email,
+      phoneNumber,
+      appointmentTime,
+      message
+    };
+
+    // Save the appointment to Firestore with a unique ID
+    const appointmentRef = await admin.firestore().collection('appointments').doc();
+    await appointmentRef.set(appointment);
+    
     res.status(201).json({ message: 'Appointment created successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+
 app.get('/get-appointments', async (req, res) => {
   try {
-    const snapshot = await admin.database.ref('/appointments').once('value');
-    const appointments = snapshot.val() || {};
+    const snapshot = await admin.firestore().collection('appointments').get();
+    const appointments = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
     res.json(appointments);
   } catch (error) {
     console.error('Error fetching appointments:', error);
     res.status(500).json({ message: 'Error fetching appointments' });
-    alert(error.message);
   }
 });
 
-// API endpoint for creating an appointment
-app.post('/api/appointments', async (req, res) => {
-  const { email, phoneNumber, appointmentTime, message } = req.body;
 
-  if (!email || !phoneNumber || !appointmentTime) {
-    return res.status(400).json({ message: 'Missing required fields' });
+app.post('/move-appointment', async (req, res) => {
+  const { appointmentId, ...additionalFields } = req.body;
+  if (!appointmentId) {
+    res.status(400).json({ message: 'Missing appointment ID' });
+    return;
   }
+  try {
+    const appointmentRef = admin.firestore().collection('appointments').doc(appointmentId);
+    const appointmentSnapshot = await appointmentRef.get();
+
+    if (!appointmentSnapshot.exists) {
+      res.status(404).json({ message: 'Appointment not found' });
+      return;
+    }
+
+    const appointmentData = appointmentSnapshot.data();
+
+    // Add the appointment to the "completed-appointments" collection
+    const completedAppointmentRef = admin.firestore().collection('done-appointments').doc(appointmentId);
+    await completedAppointmentRef.set({ ...appointmentData, ...additionalFields });
+
+    // Delete the appointment from the "appointments" collection
+    await appointmentRef.delete();
+
+    res.status(200).json({ message: 'Appointment moved successfully' });
+  } catch (error) {
+    console.error('Error moving appointment:', error);
+    res.status(500).json({ message: 'Error moving appointment' });
+  }
+});
+
+
+app.delete('/delete-appointment/:appointmentId', async (req, res) => {
+  const appointmentId = req.params.appointmentId;
 
   try {
-    const newAppointment = {
-      email,
-      phoneNumber,
-      appointmentTime,
-      message: message || '',
-    };
+    const appointmentRef = admin.firestore().collection('appointments').doc(appointmentId);
+    const appointmentSnapshot = await appointmentRef.get();
 
-    const appointmentRef = await database.ref('/appointments').push(newAppointment);
-    const savedAppointment = { id: appointmentRef.key, ...newAppointment };
+    if (!appointmentSnapshot.exists) {
+      res.status(404).json({ message: 'Appointment not found' });
+      return;
+    }
 
-    res.status(201).json(savedAppointment);
+    // Delete the appointment
+    await appointmentRef.delete();
+
+    res.status(200).json({ message: 'Appointment deleted successfully' });
   } catch (error) {
-    console.error('Error creating appointment:', error);
-    res.status(500).json({ message: 'Error creating appointment' });
+    console.error('Error deleting appointment:', error);
+    res.status(500).json({ message: 'Error deleting appointment' });
   }
 });
 
@@ -101,7 +141,7 @@ const verifyIdToken = async (req, res, next) => {
       res.status(403).json({ error: 'Invalid token' });
     }
   };
-  
+
 
   app.get('/appointments', verifyIdToken, async (req, res) => {
     try {
@@ -118,30 +158,6 @@ const verifyIdToken = async (req, res, next) => {
     }
   });
 
-app.post('/send-message', async (req, res) => {
-  const { name, email, message } = req.body;
-
-  try {
-    // Save the message to Firebase Firestore
-    const docRef = await db.collection('messages').add({
-      name,
-      email,
-      message,
-      timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    });
-
-    console.log(`Message saved with ID: ${docRef.id}`);
-    res.sendStatus(200);
-  } catch (error) {
-    console.error('Error saving message:', error);
-    res.sendStatus(500);
-  }
-});
-
-
-app.get('/test', async (req, res) => {
-    res.status(200).json({ message: 'Success!' });
-    });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

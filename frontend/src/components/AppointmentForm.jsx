@@ -22,6 +22,8 @@ const handleSubmit = async (event) => {
 
     // Handle the response (e.g., display a success message, navigate to another page, etc.)
     console.log('Appointment created successfully:', response.data);
+    alert("Appointment created successfully");
+    window.location.href = "/dashboard";
   } catch (error) {
     // Handle the error (e.g., display an error message)
     console.error('Error creating appointment:', error);
