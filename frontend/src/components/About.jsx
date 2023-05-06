@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import video0 from '../assets/video.webm';
-
+import Video from './Video';
+import NewsFeed from './NewsFeed';
 
 const About = () => {
   return (
@@ -11,6 +11,7 @@ const About = () => {
                 <motion.div
                     initial={{ x: "150vw" }}
                     animate={{ x:0 }}
+                    whileInView="show"
                     transition={{ type: "spring", stiffness: 60, delay: 0.4}}
                     className="flex flex-col justify-start pl-10 font-poppins font-semibold text-black"
                     >
@@ -23,6 +24,7 @@ const About = () => {
                 <motion.div
                     initial={{ x: "150vw" }}
                     animate={{ x:0 }}
+                    whileInView="show"
                     transition={{ type: "spring", stiffness: 40, delay: 0.4}}
                     className="flex flex-col justify-start pl-10 font-poppins font-semibold text-black"
                     >
@@ -34,6 +36,7 @@ const About = () => {
                 <motion.div
                     initial={{ x: "150vw" }}
                     animate={{ x:0 }}
+                    whileInView="show"
                     transition={{ type: "spring", stiffness: 40, delay: 0.4}}
                     className="flex flex-col justify-start pl-10 font-poppins font-semibold text-black"
                     >
@@ -44,6 +47,7 @@ const About = () => {
                 <motion.div
                     initial={{ x: "150vw" }}
                     animate={{ x:0 }}
+                    whileInView="show"
                     transition={{ type: "spring", stiffness: 40, delay: 0.4}}
                     className="flex flex-col justify-start pl-10 font-poppins font-semibold text-black"
                     >
@@ -56,6 +60,7 @@ const About = () => {
                 <motion.div
                     initial={{ x: "150vw" }}
                     animate={{ x:0 }}
+                    whileInView="show"
                     transition={{ type: "spring", stiffness: 40, delay: 0.4}}
                     className="flex flex-col justify-start pl-10 font-poppins font-semibold p-4 text-black"
                     >
@@ -64,9 +69,8 @@ const About = () => {
                 </motion.div>
             </div>
         </div>
-        <div className="flex flex-row justify-center">
-            <video src={video0} alt="video" className="h-3/4 w-full " autoPlay loop/>
-        </div>
+        <Video />
+        
     </section>
   )
 }

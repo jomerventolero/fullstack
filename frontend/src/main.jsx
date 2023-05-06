@@ -10,6 +10,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { auth } from './auth.js'
 import { useState, useEffect } from 'react';
+import NewsFeedUploadPage from './pages/NewsFeedUploadPage.jsx'
+import NewsFeedPage from './pages/NewsFeedPage.jsx'
 
 const userAuth = () => {
   const [user, setUser] = useState(null);
@@ -50,6 +52,14 @@ const router = createBrowserRouter(
     {
       path: '/contact',
       element: <ContactPage />,
+    },
+    {
+      path: "/newsfeedupload",
+      element: <NewsFeedUploadPage />,
+    },
+    {
+      path: "/newsfeed",
+      element: <NewsFeedPage />,
     }
   ]
 );

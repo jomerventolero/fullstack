@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="absolute top-[400%] w-full bg-white text-black font-poppins">
+    <footer className="absolute top-[350%] w-full bg-white text-black font-poppins">
       <div className="container py-2">
         <div className="row">
           <div className="col-md-4">

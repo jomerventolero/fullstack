@@ -36,7 +36,9 @@ function BasicExample() {
             ) : (
               <Nav.Link href="/login" className="text-blue-700 font-semibold font-poppins">Login</Nav.Link>
             )}
-            
+          </Nav>
+          <Nav>
+            <Nav.Link href="/newsfeed" className="text-blue-700 font-semibold font-poppins">News Feed</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

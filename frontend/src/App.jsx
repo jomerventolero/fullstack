@@ -1,17 +1,25 @@
-import Navbar from '../src/components/Navbar.jsx';
-import Hero from '../src/components/Hero.jsx';
-import About from '../src/components/About.jsx';
-import Footer from './components/Footer.jsx';
+import Loader from './components/Loader.jsx';
+
+import { lazy } from 'react';
+import { Suspense } from 'react';
+
+const Navbar = lazy(() => import('./components/Navbar'));
+const Hero = lazy(() => import('./components/Hero'));
+const About = lazy(() => import('./components/About'));
+const Footer = lazy(() => import('./components/Footer'));
+
 
 function App() {
 
   return (
-    <div className="bg-cover w-full h-full max-h-full">
-      <Navbar />
-      <Hero />
-      <About />
-      <Footer />
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div className="bg-cover w-full h-full max-h-full">
+        <Navbar />
+        <Hero />
+        <About />
+        <Footer />
+      </div>
+    </Suspense>
   );
 }
 

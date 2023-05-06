@@ -29,12 +29,12 @@ function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen font-medium align-middle bg-cover bg-background1 text-slate-800 font-poppins">
       <Navbar />
-      <form onSubmit={handleSignIn} className="flex flex-col items-center justify-center gap-4 p-8 bg-white rounded-2xl drop-shadow-2xl">
+      <form onSubmit={handleSignIn} className="flex flex-col items-center justify-center gap-4 p-4 bg-white rounded-2xl drop-shadow-2xl">
         <div className="flex">
           <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
           <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
         </div>
-        <div className="flex flex-col justify-center gap-1">
+        <div className="flex flex-col w-1/2  justify-center gap-1">
           <label 
             className="p-2"
             htmlFor="email">Email</label>
@@ -43,10 +43,10 @@ function LoginPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="p-1 border-2 rounded-full"
+            className=" border-2 rounded-full"
           />
         </div>
-        <div className="flex flex-col justify-center gap-1">
+        <div className="flex flex-col w-1/2 justify-center gap-1">
           <label 
             className="p-2"
             htmlFor="password">Password</label>
@@ -55,7 +55,7 @@ function LoginPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="p-1 border-2 rounded-full"
+            className="border-2 rounded-full"
           />
         </div>
         <button type="submit" className="px-4 py-2 mx-auto border-2 rounded-full">Login</button>

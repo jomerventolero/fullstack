@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDgUhoEXbNN0srYqKEnMGB-sxLUvefDCAY",
   authDomain: "celina-plains.firebaseapp.com",
   projectId: "celina-plains",
-  storageBucket: "celina-plains.appspot.com",
+  storageBucket: "gs://celina-plains.appspot.com",
   messagingSenderId: "548419353377",
   appId: "1:548419353377:web:2e189f24b9005975451c60",
   measurementId: "G-JHF5KF4110"

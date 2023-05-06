@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import Loader from './Loader';
+import { Suspense } from 'react';
+
 const DisplayAppointments = () => {
   const [appointments, setAppointments] = useState([]);
 
@@ -40,33 +43,35 @@ const DisplayAppointments = () => {
   };
 
   return (
-    <div className='bg-white drop-shadow-2xl p-8 h-screen'>
-      <h1 className="font-poppins font-semibold text-5xl">Appointments</h1>
-      {appointments.length === 0 ? (
-        <p>No appointments found.</p>
-      ) : (
-        <ul className="pt-4 z-10">
-          {appointments.map((appointment) => (
-            <li key={appointment.id}
-                className="pb-6"
-            >
-              <strong>Email:</strong> {appointment.email}
-              <br />
-              <strong>Phone Number:</strong> {appointment.phoneNumber}
-              <br />
-              <strong>Date/Time:</strong> {appointment.appointmentTime}
-              <br />
-              <strong>Message:</strong> {appointment.message}
-              <hr />
-              <button type="submit" 
-                className="p-1 my-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 hover:border-blue-500"
-                onClick={() => handleMakeAsDone(appointment.id, appointment.email, appointment.phoneNumber, appointment.appointmentTime, appointment.message)}
-              >Make as Done</button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div className='bg-white drop-shadow-2xl p-8 h-screen'>
+        <h1 className="font-poppins font-semibold text-5xl">Appointments</h1>
+        {appointments.length === 0 ? (
+          <p>No appointments found.</p>
+        ) : (
+          <ul className="pt-4 z-10">
+            {appointments.map((appointment) => (
+              <li key={appointment.id}
+                  className="pb-6"
+              >
+                <strong>Email:</strong> {appointment.email}
+                <br />
+                <strong>Phone Number:</strong> {appointment.phoneNumber}
+                <br />
+                <strong>Date/Time:</strong> {appointment.appointmentTime}
+                <br />
+                <strong>Message:</strong> {appointment.message}
+                <hr />
+                <button type="submit" 
+                  className="p-1 my-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 hover:border-blue-500"
+                  onClick={() => handleMakeAsDone(appointment.id, appointment.email, appointment.phoneNumber, appointment.appointmentTime, appointment.message)}
+                >Make as Done</button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </Suspense>
   );
 };
 

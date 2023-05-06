@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { auth } from '../auth'
 import { useState, useEffect } from 'react';
 
+
 const DashboardNav = () => {
   const logout = () => {
     auth.signOut(auth)
@@ -38,6 +39,11 @@ const DashboardNav = () => {
                   <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                 ) : (
                   <Nav.Link href="/login">Login</Nav.Link>
+                )}
+                {user ? (
+                  <Nav.Link href="/newsfeedupload">Upload Newsfeed</Nav.Link>
+                ) : (
+                  null
                 )}
                 <Nav.Link href="/appointment">Book an Appointment</Nav.Link>
             </Nav>
