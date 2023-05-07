@@ -3,7 +3,6 @@ const cors = require('cors');
 const admin = require('firebase-admin');
 const serviceAccount = require('./celina-plains-firebase-adminsdk-chhjg-899b477033.json'); 
 const { v4: uuidv4 } = require('uuid');
-const { axios } = require('axios');
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -162,6 +161,7 @@ app.delete('/delete-appointment/:appointmentId', async (req, res) => {
   }
 });
 
+// GET: allow anyone to retrieve news-feed data from the database
 app.get('/news-feed', async (req, res) => {
   try {
     const snapshot = await admin.firestore().collection('news-feed').get();
@@ -191,7 +191,8 @@ const getImageBase64 = async (imageUrl) => {
   }
 };
 
-
+// POST : endpoint for uploading news feed, restrict user upload to 
+// admin level privileges
 app.post('/upload-news-feed', validateFirebaseIdToken, async (req, res) => {
   const { postTitle, postCaption, imageBase64 } = req.body;
 
@@ -220,7 +221,8 @@ app.post('/upload-news-feed', validateFirebaseIdToken, async (req, res) => {
   }
 });
 
-
+// POST: retrieve all appointments on the database
+// 
   app.get('/appointments', verifyIdToken, async (req, res) => {
     try {
       const appointmentsRef = admin.firestore().collection('appointments').doc(req.uid);
