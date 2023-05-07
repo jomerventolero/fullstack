@@ -221,8 +221,6 @@ app.post('/upload-news-feed', validateFirebaseIdToken, async (req, res) => {
 });
 
 
-
-
   app.get('/appointments', verifyIdToken, async (req, res) => {
     try {
       const appointmentsRef = admin.firestore().collection('appointments').doc(req.uid);
@@ -237,6 +235,41 @@ app.post('/upload-news-feed', validateFirebaseIdToken, async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+// POST /create-user endpoint to create a new user document
+// in the users collection
+// This endpoint is protected by Firebase Authentication
+// and can only be accessed by a logged in user
+// The user's UID and email are automatically populated
+// in the request object
+app.post('/create-user', validateFirebaseIdToken, async (req, res) => {
+  try {
+    const { uid, email, phoneNumber } = req.user;
+    const { firstName, lastName, dateOfBirth, address, gender } = req.body;
+
+    const userRef = admin.firestore().collection('users').doc(uid);
+    await userRef.set({
+      firstName,
+      lastName,
+      dateOfBirth,
+      address,
+      gender,
+      email,
+      phoneNumber,
+    });
+
+    const duesRef = userRef.collection('monthlyDues').doc('dues');
+    await duesRef.set({
+      // add any other fields as needed
+      
+    });
+
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Error creating user' });
+  }
+});
 
 
 app.listen(port, () => {
