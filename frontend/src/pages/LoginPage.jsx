@@ -4,7 +4,13 @@ import logo from '../assets/celina.png';
 import { auth } from '../auth';
 
 
-
+/* This is a functional component in JavaScript using React. It defines a login page with a form that
+takes in an email and password, and a button to submit the form. It also includes error handling for
+invalid login attempts. The component uses the useState hook to manage the state of the email,
+password, and error variables. The handleSignIn function is called when the form is submitted and
+attempts to sign in the user using the provided email and password. If the login is successful, the
+user is redirected to the dashboard page. If there is an error, the error message is displayed to
+the user. */
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +40,7 @@ function LoginPage() {
           <img src={logo} alt="logo" className="w-[96px] mx-auto"/> 
           <h1 className="text-[64px] drop-shadow-2xl">Celina Plains</h1>
         </div>
-        <div className="flex flex-col w-1/2  justify-center gap-1">
+        <div className="flex flex-col justify-center w-1/2 gap-1">
           <label 
             className="p-2"
             htmlFor="email">Email</label>
@@ -43,10 +49,10 @@ function LoginPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className=" border-2 rounded-full"
+            className="border-2 rounded-full "
           />
         </div>
-        <div className="flex flex-col w-1/2 justify-center gap-1">
+        <div className="flex flex-col justify-center w-1/2 gap-1">
           <label 
             className="p-2"
             htmlFor="password">Password</label>

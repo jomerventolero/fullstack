@@ -2,6 +2,13 @@ import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
+/* This is a functional component in JavaScript React that fetches and displays a news feed from a
+local server. It uses the `useState` and `useEffect` hooks to manage state and perform side effects
+respectively. The `fetchNewsFeed` function is an asynchronous function that uses the `axios` library
+to make a GET request to the local server and sets the response data to the `newsFeed` state using
+the `setNewsFeed` function. The component then returns a JSX element that displays the news feed
+data using the `map` function to iterate over the `newsFeed` array and display each item's
+`postTitle`, `postCaption`, and `data` (if it exists) in a styled HTML element. */
 const NewsFeed = () => {
   const [newsFeed, setNewsFeed] = useState([]);
 
@@ -19,11 +26,11 @@ const NewsFeed = () => {
   };
 
   return (
-    <div className="w-full bg-white p-8 mx-10">
-      <span className='font-poppins font-semibold text-2xl'>
+    <div className="w-full p-8 mx-10 bg-white">
+      <span className='text-2xl font-semibold font-poppins'>
         Celina Plains Imus<br/>
       </span>
-      <h1 className="text-2xl font-bold mb-4">News Feed</h1>
+      <h1 className="mb-4 text-2xl font-bold">News Feed</h1>
       {newsFeed.map((item) => (
         <div key={item.id} className="mb-4">
           <h2 className="text-lg font-bold">{item.postTitle}</h2>
