@@ -12,6 +12,8 @@ import { auth } from './auth.js'
 import { useState, useEffect } from 'react';
 import NewsFeedUploadPage from './pages/NewsFeedUploadPage.jsx'
 import NewsFeedPage from './pages/NewsFeedPage.jsx'
+import DisplayDuesPage from './pages/DisplayDuesPage.jsx'
+import EditMonthlyDuesPage from './pages/EditMonthlyDuesPage.jsx'
 
 const userAuth = () => {
   const [user, setUser] = useState(null);
@@ -60,6 +62,14 @@ const router = createBrowserRouter(
     {
       path: "/newsfeed",
       element: <NewsFeedPage />,
+    },
+    {
+      path: "/managedues",
+      element: <DisplayDuesPage />,
+    },
+    {
+      path: "/editdues",
+      element: <EditMonthlyDuesPage />,
     }
   ]
 );

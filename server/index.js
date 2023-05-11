@@ -137,7 +137,7 @@ app.post('/make-appointment', async (req, res) => {
 });
 
 
-/* The above code is defining a route in a Node.js/Express application that handles a GET request to
+/* The below code is defining a route in a Node.js/Express application that handles a GET request to
 retrieve all appointments from a Firestore database. It uses the Firebase Admin SDK to access the
 database and retrieve the appointments collection. It then maps the documents in the collection to
 an array of appointment objects and sends the array as a JSON response to the client. If there is an
@@ -158,7 +158,7 @@ app.get('/get-appointments', async (req, res) => {
 });
 
 
-/* The above code is defining an endpoint for a POST request to move an appointment from the
+/* The below code is defining an endpoint for a POST request to move an appointment from the
 "appointments" collection to the "done-appointments" collection in Firestore. The endpoint expects a
 request body with an appointment ID and additional fields to be added to the appointment data. If
 the appointment ID is missing or not found in the "appointments" collection, the endpoint returns an
@@ -196,7 +196,7 @@ app.post('/move-appointment', async (req, res) => {
 });
 
 
-/* The above code is defining an HTTP DELETE endpoint for deleting an appointment from a Firestore
+/* The below code is defining an HTTP DELETE endpoint for deleting an appointment from a Firestore
 database. It takes the appointment ID as a parameter from the request URL, checks if the appointment
 exists in the database, and if it does, deletes it. If the appointment is not found, it returns a
 404 error message, and if there is an error during the deletion process, it returns a 500 error
@@ -224,7 +224,7 @@ app.delete('/delete-appointment/:appointmentId', async (req, res) => {
 });
 
 
-/* The above code is defining a route for the "/news-feed" endpoint in an Express.js app. When a GET
+/* The below code is defining a route for the "/news-feed" endpoint in an Express.js app. When a GET
 request is made to this endpoint, the code retrieves all documents from the "news-feed" collection
 in Firestore, converts the image URL of each document to a base64-encoded string using the
 getImageBase64 function, and constructs an array of news items with the document data and the
@@ -270,7 +270,7 @@ const getImageBase64 = async (imageUrl) => {
 
 
 
-/* The above code is defining an endpoint for uploading news feed data to Firestore in a Node.js app.
+/* The below code is defining an endpoint for uploading news feed data to Firestore in a Node.js app.
 The endpoint expects a POST request with a JSON body containing postTitle, postCaption, and
 imageBase64 properties. The code generates a unique filename for the image, saves the image as a
 base64 string in Firestore, and saves the news feed data to Firestore with the image reference.
@@ -305,7 +305,7 @@ app.post('/upload-news-feed', validateFirebaseIdToken, async (req, res) => {
 });
 
 
-/* The above code is defining a route handler for the GET request to '/appointments'. It first verifies
+/* The below code is defining a route handler for the GET request to '/appointments'. It first verifies
 the ID token of the user making the request using the 'verifyIdToken' middleware. Then, it retrieves
 the appointments data for the user with the given UID from the Firestore database. If the user has
 appointments, it returns them as a JSON response with a 200 status code. If the user has no
@@ -327,7 +327,7 @@ app.get('/appointments', verifyIdToken, async (req, res) => {
 });
 
 
-/* The above code is creating an endpoint for creating a new user in a Firebase Firestore database. It
+/* The below code is creating an endpoint for creating a new user in a Firebase Firestore database. It
 first validates the Firebase ID token of the user making the request, then extracts relevant user
 information from the request body and creates a new document in the "users" collection with the
 user's information. It also creates a new document in the "monthlyDues" subcollection for the user.
@@ -363,9 +363,36 @@ app.post('/create-user', validateFirebaseIdToken, async (req, res) => {
 });
 
 
-/* The above code is starting a server and listening on a specified port. When the server starts
-running, it will log a message to the console indicating the port number on which the server is
-running. */
+/* The monthly-dues code is defining an endpoint for a GET request to retrieve data from a Firebase Firestore
+database collection called "monthly-dues". It retrieves all the documents in the collection and
+creates an array of objects containing the document ID, user's full name, and monthly dues amount.
+The data is then returned as a JSON response. If there is an error, it logs the error and returns a
+500 status code with an error message. */
+app.get('/monthly-dues', async (req, res) => {
+  try {
+    const db = firebase.firestore();
+    const monthlyDuesData = [];
+    const querySnapshot = await db.collection('monthly-dues').get();
+    querySnapshot.forEach(doc => {
+      const { userFullname, monthlydues } = doc.data();
+      monthlyDuesData.push({
+        id: doc.id,
+        userFullname,
+        monthlydues: parseFloat(monthlydues),
+      });
+    });
+    res.json(monthlyDuesData);
+  } catch (error) {
+    console.error('Error fetching monthly dues:', error);
+    res.status(500).json({ error: 'Could not fetch monthly dues data' });
+  }
+});
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+/* The above code is starting a server and listening on a specified port. When the server starts
+running, it will log a message to the console indicating the port number on which the server is
+running. */

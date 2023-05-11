@@ -1,0 +1,91 @@
+import React, { useState, useEffect } from 'react';
+import { app } from '../auth.js';
+
+const EditMonthlyDues = ({ userId }) => {
+  const [monthlyDues, setMonthlyDues] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    // Initialize Firebase app (assuming you've already done this)
+    const db = app.firestore();
+
+    // Fetch the monthly dues data from Firestore for the specified user
+    db.collection('users')
+      .doc(userId)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          setMonthlyDues(doc.data().duesByDate);
+        }
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching monthly dues:', error);
+      });
+  }, [userId]);
+
+  const handleInputChange = (month, value) => {
+    setMonthlyDues(prevMonthlyDues => ({
+      ...prevMonthlyDues,
+      [month]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    setIsSaving(true);
+
+    // Update the monthly dues data in Firestore for the specified user
+    const db = app.firestore();
+    db.collection('users')
+      .doc(userId)
+      .update({ duesByDate: monthlyDues })
+      .then(() => {
+        setIsSaving(false);
+        console.log('Monthly dues updated successfully.');
+      })
+      .catch(error => {
+        console.error('Error updating monthly dues:', error);
+        setIsSaving(false);
+      });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg font-medium text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container px-4 pb-8 pt-[100px] mx-auto">
+      <h2 className="mb-4 text-lg font-medium text-gray-600">Edit Monthly Dues</h2>
+      <div className="p-6 bg-white rounded-lg shadow-md">
+        <form>
+          {Object.entries(monthlyDues).map(([month, value]) => (
+            <div key={month} className="mb-4">
+              <label className="block mb-2 font-medium text-gray-600">{month}</label>
+              <input
+                type="number"
+                value={value}
+                onChange={e => handleInputChange(month, e.target.value)}
+                className="w-full px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={isSaving}
+            className="px-4 py-2 text-white bg-blue-500 rounded-md shadow-md"
+          >
+            {isSaving ? 'Saving...' : 'Save Changes'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default EditMonthlyDues;
