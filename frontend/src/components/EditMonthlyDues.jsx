@@ -16,7 +16,7 @@ const EditMonthlyDues = ({ userId }) => {
       .get()
       .then(doc => {
         if (doc.exists) {
-          setMonthlyDues(doc.data().duesByDate);
+          setMonthlyDues(doc.data().duesByDate || {});
         }
         setIsLoading(false);
       })
@@ -63,29 +63,46 @@ const EditMonthlyDues = ({ userId }) => {
       <h2 className="mb-4 text-lg font-medium text-gray-600">Edit Monthly Dues</h2>
       <div className="p-6 bg-white rounded-lg shadow-md">
         <form>
-          {Object.entries(monthlyDues).map(([month, value]) => (
-            <div key={month} className="mb-4">
-              <label className="block mb-2 font-medium text-gray-600">{month}</label>
-              <input
-                type="number"
-                value={value}
-                onChange={e => handleInputChange(month, e.target.value)}
-                className="w-full px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-          ))}
+          {Array.from({ length: 12 }).map((_, index) => {
+            const monthNumber = (index + 1).toString().padStart(2, '0');
+            const month = new Date(2022, index).toLocaleString('default', { month: 'long' });
+            const value = monthlyDues[monthNumber] || '';
+
+            return (
+              <div key={month} className="mb-4">
+                <label className="block mb-2 font-medium text-gray-600">{month}</label>
+                {value !== '' ? (
+                  <input
+                    type="text"
+                    value={value}
+                    readOnly
+                    className="w-1/4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={value}
+                    pattern="\d*"
+                    inputMode="numeric"
+                    onChange={e => handleInputChange(monthNumber, e.target.value)}
+                    className="w-1/4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                )}
+              </div>
+            );
+          })}
           <button
             type="button"
             onClick={handleSave}
             disabled={isSaving}
             className="px-4 py-2 text-white bg-blue-500 rounded-md shadow-md"
-          >
+            >
             {isSaving ? 'Saving...' : 'Save Changes'}
-          </button>
+            </button>
         </form>
       </div>
     </div>
-  );
+);
 };
-
-export default EditMonthlyDues;
+            
+            export default EditMonthlyDues;
