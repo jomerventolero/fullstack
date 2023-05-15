@@ -16,10 +16,15 @@ const MonthlyDuesDisplay = () => {
         const duesData = [];
         querySnapshot.forEach(doc => {
           const { userFullname, duesByDate } = doc.data();
+          const formattedDuesByDate = Object.entries(duesByDate || {}).reduce((acc, [month, value]) => {
+            const monthName = getMonthName(month);
+            acc[monthName] = value;
+            return acc;
+          }, {});
           duesData.push({
             id: doc.id,
             userFullname,
-            duesByDate,
+            duesByDate: formattedDuesByDate,
           });
         });
         setDues(duesData);
@@ -29,6 +34,12 @@ const MonthlyDuesDisplay = () => {
         console.error('Error fetching monthly dues:', error);
       });
   }, []);
+
+  const getMonthName = monthNumber => {
+    const date = new Date();
+    date.setMonth(parseInt(monthNumber) - 1);
+    return date.toLocaleString('default', { month: 'long' });
+  };
 
   if (isLoading) {
     return (
@@ -45,7 +56,7 @@ const MonthlyDuesDisplay = () => {
           <tr>
             <th className="px-4 py-2 font-medium text-gray-600 border border-gray-500">User</th>
             {[...Array(12)].map((_, i) => {
-              const month = `${i + 1}`.padStart(2, '0');
+              const month = getMonthName(i + 1);
               return (
                 <th key={i} className="px-4 py-2 font-medium text-gray-600 border border-gray-500">
                   {month}
@@ -59,8 +70,8 @@ const MonthlyDuesDisplay = () => {
             <tr key={id}>
               <td className="px-4 py-2 text-gray-600 border border-gray-500">{userFullname}</td>
               {[...Array(12)].map((_, i) => {
-                const month = `${i + 1}`.padStart(2, '0');
-                const monthlyDue = duesByDate && duesByDate[month] ? duesByDate[month] : 0;
+                const month = getMonthName(i + 1);
+                const monthlyDue = duesByDate[month] || 0;
                 return (
                   <td key={i} className="px-4 py-2 text-gray-600 border border-gray-500">
                     ₱{monthlyDue}

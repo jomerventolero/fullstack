@@ -97,16 +97,27 @@ Firebase Admin SDK to create a new user with the provided email and password. If
 successfully, it sends a response to the client with the user's unique ID (UID). If there is an
 error during the process, it sends an error response with the error message. */
 app.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
-
+  const { firstName, lastName, bday, email, password, isAdmin } = req.body;
   try {
-    const userRecord = await admin.auth().createUser({ email, password });
-    res.status(201).json({ uid: userRecord.uid });
+    // Create a new user
+    const userRecord = await auth.createUser({
+      email: email,
+      password: password,
+    });
+
+    // Save the user's profile information in Firestore
+    await db.collection('users').doc(userRecord.uid).set({
+      firstName: firstName,
+      lastName: lastName,
+      isAdmin: isAdmin,
+    });
+
+    res.send({ message: 'User registered successfully', userId: userRecord.uid });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating new user:', error);
+    res.status(500).send({ message: 'Error creating new user' });
   }
 });
-
 
 
 /* This code defines an endpoint for creating a new appointment. When a POST request is made to the

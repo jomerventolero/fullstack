@@ -8,15 +8,8 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password1, setPassword1] = useState('');
-  const [toggle, setToggle] = useState(false);
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  const [fullname, setFullname] = useState(''); 
+  const [address, setAddress] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,7 +24,7 @@ function RegisterPage() {
   };
 
   return (
-    <div className='bg-background1 bg-cover text-slate-800 flex flex-col w-screen h-screen font-poppins font-medium items-center  align-middle justify-center'>
+    <div className='flex flex-col items-center justify-center w-screen h-screen font-medium align-middle bg-cover bg-background1 text-slate-800 font-poppins'>
     <Navbar />
     <div className="justify-center">      
       <form onSubmit={handleSubmit} 
@@ -44,12 +37,36 @@ function RegisterPage() {
         <div className="flex flex-col justify-center gap-1">
           <label 
             className="p-2"
-            htmlFor="email">email</label>
+            htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="p-1 border-2 rounded-full"
+          />
+        </div>
+        <div className="flex flex-col justify-center gap-1">
+          <label 
+            className="p-2"
+            htmlFor="fullName">Full name</label>
+          <input
+            type="text"
+            id="fullname"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+            className="p-1 border-2 rounded-full"
+          />
+        </div>
+        <div className="flex flex-col justify-center gap-1">
+          <label 
+            className="p-2"
+            htmlFor="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
         </div>
@@ -76,9 +93,8 @@ function RegisterPage() {
             onChange={(e) => setPassword1(e.target.value)}
             className="p-1 border-2 rounded-full"
           />
-          
         </div>
-        <button type="submit" onClick={handleSubmit} className="py-2 px-4 mx-auto border-2 rounded-full">Register</button>
+        <button type="submit" onClick={handleSubmit} className="px-4 py-2 mx-auto border-2 rounded-full">Register</button>
         <p>
           Already have an account? <Link to="/login">Login here!</Link>
         </p>
