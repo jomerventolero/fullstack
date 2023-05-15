@@ -31,9 +31,9 @@ const handleSubmit = async (event) => {
 };
 
   return (
-    <div className="bg-white rounded-lg py-4 drop-shadow-2xl flex flex-col w-full max-w-md mx-auto mt-10 items-center justify-center">
-      <h1 className="text-2xl font-bold mb-5">Make an Appointment</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 justify-center">
+    <div className="flex flex-col items-center justify-center w-full max-w-md py-4 mx-auto mt-10 bg-white rounded-3xl drop-shadow-2xl">
+      <h1 className="mb-5 text-2xl font-bold">Make an Appointment</h1>
+      <form onSubmit={handleSubmit} className="justify-center space-y-4">
         <div>
           <label htmlFor="email" className="block mb-2">
             Email:
@@ -87,7 +87,7 @@ const handleSubmit = async (event) => {
           </div>
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Submit
         </button>

@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../Downloads/Old Downloads/vtiger-docker-master"
 		}
 	],
 	"settings": {}
