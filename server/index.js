@@ -13,6 +13,8 @@ admin.initializeApp({
 /* These lines of code are setting up an Express server. */
 const app = express();
 const port = process.env.PORT || 3000;
+const auth = admin.auth();
+const db = admin.firestore();
 
 /* `app.use(cors())` enables Cross-Origin Resource Sharing (CORS) for the Express server, allowing it
 to receive requests from other domains. `app.use(express.json())` is middleware that parses incoming
@@ -97,8 +99,12 @@ Firebase Admin SDK to create a new user with the provided email and password. If
 successfully, it sends a response to the client with the user's unique ID (UID). If there is an
 error during the process, it sends an error response with the error message. */
 app.post('/signup', async (req, res) => {
-  const { firstName, lastName, bday, email, password, isAdmin } = req.body;
+  const { fullname, email, password, isAdmin } = req.body;
   try {
+    if (!fullname) {
+      return res.status(400).send({ message: 'Full name is required' });
+    }
+
     // Create a new user
     const userRecord = await auth.createUser({
       email: email,
@@ -107,12 +113,12 @@ app.post('/signup', async (req, res) => {
 
     // Save the user's profile information in Firestore
     await db.collection('users').doc(userRecord.uid).set({
-      firstName: firstName,
-      lastName: lastName,
+      userFullname: fullname,
       isAdmin: isAdmin,
     });
 
     res.send({ message: 'User registered successfully', userId: userRecord.uid });
+    alert('User registered successfully');
   } catch (error) {
     console.error('Error creating new user:', error);
     res.status(500).send({ message: 'Error creating new user' });
