@@ -10,10 +10,11 @@ function RegisterPage() {
   const [password1, setPassword1] = useState('');
   const [fullname, setFullname] = useState(''); 
   const [address, setAddress] = useState('');
+  const isAdmin = false;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3000/signup', { email, password })
+    axios.post('http://localhost:3000/signup', { email, password, fullname, address, isAdmin })
       .then(response => {
         console.log(response.data);
         window.location.href = '/login';
