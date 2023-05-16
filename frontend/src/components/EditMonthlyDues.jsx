@@ -71,23 +71,13 @@ const EditMonthlyDues = ({ userId }) => {
             return (
               <div key={month} className="mb-4">
                 <label className="block mb-2 font-medium text-gray-600">{month}</label>
-                {value !== '' ? (
                   <input
-                    type="text"
+                    type="number"
                     value={value}
-                    readOnly
-                    className="w-1/4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={value}
-                    pattern="\d*"
                     inputMode="numeric"
                     onChange={e => handleInputChange(monthNumber, e.target.value)}
                     className="w-1/4 px-4 py-2 text-gray-600 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
-                )}
               </div>
             );
           })}
@@ -96,13 +86,13 @@ const EditMonthlyDues = ({ userId }) => {
             onClick={handleSave}
             disabled={isSaving}
             className="px-4 py-2 text-white bg-blue-500 rounded-md shadow-md"
-            >
+          >
             {isSaving ? 'Saving...' : 'Save Changes'}
-            </button>
+          </button>
         </form>
       </div>
     </div>
-);
+  );
 };
-            
-            export default EditMonthlyDues;
+
+export default EditMonthlyDues;

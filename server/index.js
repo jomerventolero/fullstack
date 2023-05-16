@@ -118,7 +118,6 @@ app.post('/signup', async (req, res) => {
     });
 
     res.send({ message: 'User registered successfully', userId: userRecord.uid });
-    alert('User registered successfully');
   } catch (error) {
     console.error('Error creating new user:', error);
     res.status(500).send({ message: 'Error creating new user' });
@@ -150,6 +149,26 @@ app.post('/make-appointment', async (req, res) => {
     res.status(201).json({ message: 'Appointment created successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+
+// Define the API endpoint to retrieve the user's fullname
+app.get('/userFullname', async (req, res) => {
+  try {
+    // Extract the user ID from the request, assuming you've set it in the request headers or cookies
+    const userId = req.headers['user-id']; // Update with your preferred header or cookie name
+
+    // Retrieve the user document from Firestore
+    const userDoc = await admin.firestore().collection('users').doc(userId).get();
+
+    // Extract the userFullname field from the user document
+    const userFullname = userDoc.exists ? userDoc.data().userFullname : null;
+
+    res.json({ userFullname });
+  } catch (error) {
+    console.error('Error fetching userFullname:', error);
+    res.status(500).json({ error: 'An error occurred while fetching userFullname' });
   }
 });
 
@@ -376,6 +395,33 @@ app.post('/create-user', validateFirebaseIdToken, async (req, res) => {
   } catch (error) {
     console.error('Error creating user:', error);
     res.status(500).json({ message: 'Error creating user' });
+  }
+});
+
+
+/* The code below is defining a route for retrieving monthly dues data for a specific user. It uses the
+Express.js framework and the HTTP GET method. The route is defined as '/users/:userId/monthly-dues',
+where ':userId' is a parameter that represents the ID of the user whose monthly dues data is being
+retrieved. */
+app.get('/users/:userId/monthly-dues', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Retrieve the document for the specified user
+    const userDoc = await db.collection('users').doc(userId).get();
+
+    if (!userDoc.exists) {
+      res.status(404).send('User not found');
+      return;
+    }
+
+    // Retrieve the monthly dues data from the user document
+    const { duesByDate } = userDoc.data();
+
+    res.json(duesByDate);
+  } catch (error) {
+    console.error('Error retrieving monthly dues:', error);
+    res.status(500).send('An error occurred');
   }
 });
 

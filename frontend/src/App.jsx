@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Suspense fallback={<Loader />}>
-      <div className="bg-cover w-full h-full max-h-full">
+      <div className="w-full h-full max-h-full bg-cover">
         <Navbar />
         <Hero />
         <About />

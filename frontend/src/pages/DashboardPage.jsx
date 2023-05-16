@@ -3,6 +3,7 @@ import DashboardNav from '../components/DashboardNav';
 import DisplayAppointments from '../components/DIsplayAppointments';
 import NewsFeed from '../components/NewsFeed';
 
+
 /**
  * The function returns a JSX element representing a dashboard page with a navigation bar, appointments
  * display, and news feed.

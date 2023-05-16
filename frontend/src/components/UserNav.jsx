@@ -11,6 +11,9 @@ import { useState, useEffect } from 'react';
  * authentication status.
  */
 const DashboardNav = () => {
+
+
+
   const logout = () => {
     auth.signOut(auth)
       .then(() => {
@@ -24,11 +27,9 @@ const DashboardNav = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
-    
 
     // Clean up the subscription when the component unmounts
     return () => unsubscribe();
@@ -42,22 +43,12 @@ const DashboardNav = () => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 {user ? (
-                  <Nav.Link href="/dashboard-admin">Dashboard</Nav.Link>
+                  <Nav.Link href="/dashboard-user">Dashboard</Nav.Link>
                 ) : (
                   <Nav.Link href="/login">Login</Nav.Link>
                 )}
                 {user ? (
-                  <Nav.Link href="/newsfeedupload">Upload Newsfeed</Nav.Link>
-                ) : (
-                  null
-                )}
-                {user ? (
                   <Nav.Link href="/managedues">View Dues</Nav.Link>
-                ) : (
-                  null
-                )}
-                {user ? (
-                  <Nav.Link href="/editdues">Edit Dues</Nav.Link>
                 ) : (
                   null
                 )}

@@ -17,6 +17,7 @@ function RegisterPage() {
     axios.post('http://localhost:3000/signup', { email, password, fullname, address, isAdmin })
       .then(response => {
         console.log(response.data);
+        alert("Successfully registered!");
         window.location.href = '/login';
       })
       .catch(error => {

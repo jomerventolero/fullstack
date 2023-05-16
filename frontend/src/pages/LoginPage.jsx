@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import logo from '../assets/celina.png';
-import { auth } from '../auth';
+import { auth, app } from '../auth';
+import { useEffect } from 'react';
 
 
 /* This is a functional component in JavaScript using React. It defines a login page with a form that
@@ -15,16 +16,46 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  
+  useEffect(() => {
+    const user = app.auth().currentUser;
+  
+    if (user) {
+      const userId = user.uid;
+      const db = app.firestore();
+  
+      db.collection('users')
+        .doc(userId)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            const isAdministrator = doc.data().isAdmin;
+            setIsAdmin(isAdministrator);
+  
+            if (isAdmin) {
+              // Redirect to the admin dashboard
+              window.location.href = '/dashboard-admin';
+            }
+            } else {
+              setIsAdmin(false);
+            }
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+          setIsAdmin(false);
+        });
+    }
+  }, []);
+  
 
   const handleSignIn = async (e) => {
-    e.preventDefault();
-
+    e.preventDefault();    
     try {
       await auth.signInWithEmailAndPassword(email, password);
       setEmail('');
       setPassword('');
       setError(null);
-      window.location.href = '/dashboard';
     } catch (error) {
       setError(error.message);
       alert("Invalid email or password");
