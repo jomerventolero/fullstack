@@ -3,6 +3,7 @@ import UserNav from '../components/UserNav'
 import UserDashboard from '../components/UserDashboard'
 import { useState, useEffect } from 'react'
 import { app } from '../auth'
+import Greeting from '../components/Greeting'
 
 const UserDashboardPage = () => {
     const [userFullname, setUserFullname] = useState('');
@@ -46,7 +47,7 @@ const UserDashboardPage = () => {
   return (
     <div className="pb-20 bg-cover bg-background1">
         <UserNav />
-        <span> Welcome {userFullname} </span>
+        <Greeting />
         <UserDashboard />
     </div>
   )
