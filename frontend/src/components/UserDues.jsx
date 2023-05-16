@@ -34,18 +34,6 @@ const UserDues = () => {
     fetchMonthlyDues();
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <motion.div
-          className="w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full animate-spin"
-          style={{ borderTopColor: '#4F46E5' }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        />
-      </div>
-    );
-  }
 
   const getMonthName = (monthNumber) => {
     const date = new Date();
