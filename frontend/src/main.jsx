@@ -83,7 +83,7 @@ const router = createBrowserRouter(
     {
       path: "/contribution",
       element: <UserEditDuesPage />,
-    }
+    },
   ]
 );
 
