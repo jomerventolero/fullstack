@@ -26,7 +26,7 @@ const NewsFeed = () => {
   };
 
   return (
-    <div className="w-full p-8 mx-10 bg-white">
+    <div className="w-full p-8 mx-10 bg-white rounded-2xl">
       <span className='text-2xl font-semibold font-poppins'>
         Celina Plains Imus<br/>
       </span>
@@ -37,7 +37,7 @@ const NewsFeed = () => {
           <p className="text-gray-500">{item.postCaption}</p>
           
           {item.data && (
-            <img src={item.data} alt="News Feed" className="mt-2 w-[512px]" />
+            <img src={item.data} alt="News Feed" className="rounded-xl mt-2 w-[512px]" />
           )}
         </div>
       ))}

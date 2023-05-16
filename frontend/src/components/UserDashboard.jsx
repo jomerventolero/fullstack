@@ -4,7 +4,7 @@ import UserDues from './UserDues'
 
 const UserDashboard = () => {
   return (
-    <div className="border-2 border-black">
+    <div className="justify-center pt-20">
         <NewsFeed />
         <UserDues />
     </div>

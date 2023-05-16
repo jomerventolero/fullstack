@@ -36,7 +36,7 @@ const DashboardNav = () => {
   }, []);
   
   return (
-    <Navbar className="fixed z-50 w-full drop-shadow-2xl" bg="light" expand="lg">
+    <Navbar className="fixed top-0 z-50 w-full drop-shadow-2xl" bg="light" expand="lg">
         <Container>
             <Navbar.Brand href="/">Celina Plains</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -47,12 +47,8 @@ const DashboardNav = () => {
                 ) : (
                   <Nav.Link href="/login">Login</Nav.Link>
                 )}
-                {user ? (
-                  <Nav.Link href="/managedues">View Dues</Nav.Link>
-                ) : (
-                  null
-                )}
                 <Nav.Link href="/appointment">Book an Appointment</Nav.Link>
+                <Nav.Link href="/contribution">Contribution</Nav.Link>
             </Nav>
             <Nav>
               {user ? (

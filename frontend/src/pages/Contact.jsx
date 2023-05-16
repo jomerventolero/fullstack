@@ -9,9 +9,9 @@ const DashboardNav = lazy(() => import('../components/DashboardNav'));
 const Contact = () => {
   return (
     <Suspense fallback={<Loader />}>
-    <div className='bg-background1 bg-cover'>
+    <div className='bg-cover bg-background1'>
         <DashboardNav />
-        <div className="pt-[100px] flex justify-center">
+        <div className="pt-[100px] flex justify-center pb-20">
             <AppointmentForm />
         </div>
     </div>

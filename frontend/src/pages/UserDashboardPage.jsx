@@ -44,7 +44,7 @@ const UserDashboardPage = () => {
     }
   
   return (
-    <div>
+    <div className="pb-20 bg-cover bg-background1">
         <UserNav />
         <span> Welcome {userFullname} </span>
         <UserDashboard />

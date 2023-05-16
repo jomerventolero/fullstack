@@ -15,6 +15,7 @@ import NewsFeedPage from './pages/NewsFeedPage.jsx'
 import DisplayDuesPage from './pages/DisplayDuesPage.jsx'
 import EditMonthlyDuesPage from './pages/EditMonthlyDuesPage.jsx'
 import UserDashboardPage from './pages/UserDashboardPage.jsx'
+import UserEditDuesPage from './pages/UserEditDuesPage.jsx'
 
 
 const userAuth = () => {
@@ -78,6 +79,10 @@ const router = createBrowserRouter(
     {
       path: "/editdues",
       element: <EditMonthlyDuesPage />,
+    },
+    {
+      path: "/contribution",
+      element: <UserEditDuesPage />,
     }
   ]
 );

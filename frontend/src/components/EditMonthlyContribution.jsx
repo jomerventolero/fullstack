@@ -3,53 +3,55 @@ import { app } from '../auth.js';
 import { motion } from 'framer-motion';
 
 const EditMonthlyDues = ({ userId }) => {
-  const [monthlyDues, setMonthlyDues] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-
-  useEffect(() => {
-    // Initialize Firebase app (assuming you've already done this)
-    const db = app.firestore();
-
-    // Fetch the monthly dues data from Firestore for the specified user
-    db.collection('users')
-      .doc(userId)
-      .get()
-      .then(doc => {
-        if (doc.exists) {
-          setMonthlyDues(doc.data().duesByDate || {});
-        }
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching monthly dues:', error);
-      });
-  }, [userId]);
-
-  const handleInputChange = (month, value) => {
-    setMonthlyDues(prevMonthlyDues => ({
-      ...prevMonthlyDues,
-      [month]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    setIsSaving(true);
-
-    // Update the monthly dues data in Firestore for the specified user
-    const db = app.firestore();
-    db.collection('users')
-      .doc(userId)
-      .update({ duesByDate: monthlyDues })
-      .then(() => {
-        setIsSaving(false);
-        console.log('Monthly dues updated successfully.');
-      })
-      .catch(error => {
-        console.error('Error updating monthly dues:', error);
-        setIsSaving(false);
-      });
-  };
+    const [monthlyDues, setMonthlyDues] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSaving, setIsSaving] = useState(false);
+  
+    useEffect(() => {
+      if (userId) {
+        const db = app.firestore();
+  
+        db.collection('users')
+          .doc(userId)
+          .get()
+          .then(doc => {
+            if (doc.exists) {
+              setMonthlyDues(doc.data().duesByDate || {});
+            }
+            setIsLoading(false);
+          })
+          .catch(error => {
+            console.error('Error fetching monthly dues:', error);
+          });
+      }
+    }, [userId]);
+  
+    const handleInputChange = (month, value) => {
+      setMonthlyDues(prevMonthlyDues => ({
+        ...prevMonthlyDues,
+        [month]: value,
+      }));
+    };
+  
+    const handleSave = () => {
+      setIsSaving(true);
+  
+      if (userId) {
+        const db = app.firestore();
+        db.collection('users')
+          .doc(userId)
+          .update({ duesByDate: monthlyDues })
+          .then(() => {
+            setIsSaving(false);
+            console.log('Monthly dues updated successfully.');
+          })
+          .catch(error => {
+            console.error('Error updating monthly dues:', error);
+            setIsSaving(false);
+          });
+      }
+    };
+  
 
   if (isLoading) {
     return (
@@ -66,6 +68,7 @@ const EditMonthlyDues = ({ userId }) => {
 
   return (
     <div className="container px-4 pb-8 pt-[100px] mx-auto">
+      
       <h2 className="mb-4 text-lg font-medium text-gray-600">Edit Monthly Dues</h2>
       <div className="p-6 bg-white rounded-lg shadow-md">
         <form>

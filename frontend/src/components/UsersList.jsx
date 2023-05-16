@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { app } from '../auth.js';
+import { motion } from 'framer-motion';
 
 const UsersList = ({ onUserSelect }) => {
   const [users, setUsers] = useState([]);
@@ -28,8 +29,13 @@ const UsersList = ({ onUserSelect }) => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="text-lg font-medium text-gray-600">Loading...</div>
-      </div>
+      <motion.div
+        className="w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full animate-spin"
+        style={{ borderTopColor: '#4F46E5' }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+      />
+    </div>
     );
   }
 

@@ -11,40 +11,28 @@ function NavBar() {
   const [isAdmin, setIsAdmin] = useState(false);
   
   useEffect(() => {
-    const user = app.auth().currentUser;
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
-    });
   
-    if (user) {
-      const userId = user.uid;
-      const db = app.firestore();
-      console.log(userId);
-      db.collection('users')
-        .doc(userId)
-        .get()
-        .then(doc => {
-          if (doc.exists) {
-            const isAdministrator = doc.data().isAdmin;
-            setIsAdmin(isAdministrator);
+      if (user) {
+        const userId = user.uid;
   
-            if (isAdministrator) {
-              // Redirect to the admin dashboard
-              window.location.href = '/dashboard-admin';
-            }
-          } else {
-            setIsAdmin(false);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user data:', error);
+        if (userId === 'N8zh0HbrPVdw3nipsN7KsbeUdFy2') {
+          setIsAdmin(true);
+          window.location.href = '/dashboard-admin';
+        } else {
           setIsAdmin(false);
-        });
-    }
+          window.location.href = '/dashboard-user';
+        }
+      } else {
+        setIsAdmin(false);
+      }
+    });
   
     // Clean up the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
+  
   
 
 
