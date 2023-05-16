@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { app } from '../auth.js';
 import { motion } from 'framer-motion';
 
-const EditMonthlyDues = ({ userId }) => {
+const EditMonthlyContribution = ({ userId }) => {
   const [monthlyDues, setMonthlyDues] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -101,4 +101,4 @@ const EditMonthlyDues = ({ userId }) => {
   );
 };
 
-export default EditMonthlyDues;
+export default EditMonthlyContribution;

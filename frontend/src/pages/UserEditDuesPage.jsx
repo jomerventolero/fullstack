@@ -1,9 +1,9 @@
 // UserEditDuesPage.jsx
 import React, { useEffect, useState } from 'react';
 import UserNav from '../components/UserNav';
-import EditMonthlyDues from '../components/EditMonthlyDues';
 import { app } from '../auth.js';
 import Loader from '../components/Loader';
+import EditMonthlyContribution from '../components/EditMonthlyContribution';
 
 const UserEditDuesPage = () => {
   const [userId, setUserId] = useState(null);
@@ -29,7 +29,7 @@ const UserEditDuesPage = () => {
   return (
     <div>
       <UserNav />
-      {userId ? <EditMonthlyDues userId={userId} /> : <Loader />}
+      {userId ? <EditMonthlyContribution userId={userId} /> : <Loader />}
     </div>
   );
 };
