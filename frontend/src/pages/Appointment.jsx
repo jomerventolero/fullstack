@@ -12,7 +12,7 @@ import DashboardNav from '../components/DashboardNav'
  */
 const Appointment = () => {
   return (
-    <div className='h-screen bg-cover bg-background1'>
+    <div className='h-full bg-cover bg-background1'>
         <DashboardNav />
         <div className="pt-[100px] flex justify-center">
             <AppointmentForm />
